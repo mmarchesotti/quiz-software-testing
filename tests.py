@@ -106,3 +106,30 @@ def test_invalid_choice_id_raises_error():
     question.add_choice('a')
     with pytest.raises(Exception):
         question.remove_choice_by_id(999)
+
+@pytest.fixture
+def multi_choice_question():
+    question = Question(title='Which are fruits?', max_selections=4)
+    c1 = question.add_choice('Apple', is_correct=True)
+    c2 = question.add_choice('Carrot', is_correct=False)
+    c3 = question.add_choice('Banana', is_correct=True)
+    c4 = question.add_choice('Potato', is_correct=False)
+    return question
+
+@pytest.fixture
+def question_with_no_correct_answers():
+    question = Question(title='Select all correct answers', max_selections=2)
+    question.add_choice('Option 1', is_correct=False)
+    question.add_choice('Option 2', is_correct=False)
+    return question
+
+def test_selects_only_correct_choices(multi_choice_question):
+    ids = [choice.id for choice in multi_choice_question.choices]
+    selected = multi_choice_question.select_choices(ids)
+    correct_ids = [choice.id for choice in multi_choice_question.choices if choice.is_correct]
+    assert selected == correct_ids
+
+def test_select_from_question_with_no_correct_answers(question_with_no_correct_answers):
+    ids = [choice.id for choice in question_with_no_correct_answers.choices]
+    selected = question_with_no_correct_answers.select_choices(ids)
+    assert selected == []  # nenhum deve ser retornado como correto
