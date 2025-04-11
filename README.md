@@ -96,7 +96,7 @@ Observe as execuções em múltiplos sistemas operacionais e versões da linguag
 # Commit 2: Creating 10 unit tests
 
 Crie mais dez testes de unidade no arquivo `tests.py`.
-Utilize boas práticas, tais como (1) testar comportamentos, não métodos, (2) testar através de API pública e (3) criar testes pequenos e focados.
+Utilize boas práticas, tais como (1) testar comportamentos, não métodos, (2) testar através de APIs públicas e (3) criar testes pequenos e focados.
 
 Rode os testes localmente com o comando `pytest -v tests.py`.
 Só faça o commit com os testes passando.
